@@ -1,4 +1,4 @@
-package br.com.previsao.clima.Clima_api;
+package br.com.previsao.clima.Clima_api.dtos;
 
 public record PrevisaoItemDTO(
         String dataHora,

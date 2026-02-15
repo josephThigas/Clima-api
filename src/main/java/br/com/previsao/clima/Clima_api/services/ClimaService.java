@@ -1,5 +1,7 @@
-package br.com.previsao.clima.Clima_api;
+package br.com.previsao.clima.Clima_api.services;
 
+import br.com.previsao.clima.Clima_api.dtos.PrevisaoItemDTO;
+import br.com.previsao.clima.Clima_api.dtos.ClimaAtualDTO;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
