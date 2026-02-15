@@ -1,5 +1,7 @@
 package br.com.previsao.clima.Clima_api.controllers;
 
+import br.com.previsao.clima.Clima_api.clients.ClimaApiClient;
+import br.com.previsao.clima.Clima_api.dtos.OpenWheaterDtos.GetOpenWeatherDto;
 import br.com.previsao.clima.Clima_api.services.ClimaService;
 import br.com.previsao.clima.Clima_api.dtos.PrevisaoItemDTO;
 import br.com.previsao.clima.Clima_api.dtos.ClimaAtualDTO;
@@ -21,6 +23,7 @@ import java.util.List;
 @Tag(name = "Clima", description = "Endpoints para consulta de clima e previsão")
 public class ClimaController {
 
+
     @Autowired
     private ClimaService climaService;
 
@@ -32,14 +35,7 @@ public class ClimaController {
     @Operation(summary = "Busca o clima atual de uma cidade",
             description = "Retorna um JSON limpo (DTO) com os dados principais do clima.")
     public ResponseEntity<Object> getClima(@PathVariable String cidade) {
-
-        ClimaAtualDTO dto = climaService.buscarClima(cidade);
-
-        if (dto != null) {
-            return ResponseEntity.ok(dto);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok().body(climaService.buscarClimaPorCidade(cidade));
     }
 
     @ApiResponses(value = {
@@ -59,4 +55,5 @@ public class ClimaController {
             return ResponseEntity.notFound().build();
         }
     }
+
 }
