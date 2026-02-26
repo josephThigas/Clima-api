@@ -2,8 +2,6 @@ package br.com.previsao.clima.Clima_api.clients;
 
 import br.com.previsao.clima.Clima_api.dtos.GeminiApiDto.Response.GeminiResponseDTO;
 import br.com.previsao.clima.Clima_api.dtos.GeminiApiDto.Request.ChatRequestDTO;
-import feign.Headers;
-import feign.Param;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
