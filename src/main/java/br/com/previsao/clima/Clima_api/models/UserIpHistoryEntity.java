@@ -1,4 +1,4 @@
-package br.com.previsao.clima.Clima_api.models;
+'package br.com.previsao.clima.Clima_api.models;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
