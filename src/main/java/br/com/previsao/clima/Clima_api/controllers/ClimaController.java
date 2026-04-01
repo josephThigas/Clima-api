@@ -1,5 +1,5 @@
 package br.com.previsao.clima.Clima_api.controllers;
-
+import org.springframework.web.bind.annotation.CrossOrigin;
 import br.com.previsao.clima.Clima_api.clients.ClimaApiClient;
 import br.com.previsao.clima.Clima_api.dtos.OpenWheaterDtos.GetOpenWeatherDto;
 import br.com.previsao.clima.Clima_api.services.ClimaService;
@@ -20,6 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin("*")
 @Tag(name = "Clima", description = "Endpoints para consulta de clima e previsão")
 public class ClimaController {
 

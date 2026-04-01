@@ -4,6 +4,7 @@ public record PrevisaoItemDTO(
         String dataHora,
         double temperatura,
         String descricao,
-        String pais
+        String pais,
+        int probabilidadeChuva
 ) {
 }

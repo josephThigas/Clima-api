@@ -3,7 +3,6 @@ package br.com.previsao.clima.Clima_api.services;
 import br.com.previsao.clima.Clima_api.clients.ClimaApiClient;
 import br.com.previsao.clima.Clima_api.dtos.OpenWheaterDtos.GetOpenWeatherDto;
 import br.com.previsao.clima.Clima_api.dtos.PrevisaoItemDTO;
-import br.com.previsao.clima.Clima_api.dtos.ClimaAtualDTO;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -64,7 +63,11 @@ public class ClimaService {
                     double temperatura = item.path("main").path("temp").asDouble();
                     String descricao = item.path("weather").path(0).path("description").asText();
 
-                    previsoes.add(new PrevisaoItemDTO(dataHora, temperatura, descricao, pais));
+                    double pop = item.path("pop").asDouble(0.0);
+
+                    int probabilidadeChuva = (int) Math.round(pop * 100);
+
+                    previsoes.add(new PrevisaoItemDTO(dataHora, temperatura, descricao, pais, probabilidadeChuva));
                 }
             }
             return previsoes;
@@ -74,7 +77,4 @@ public class ClimaService {
             return null;
         }
     }
-
-
-
 }
