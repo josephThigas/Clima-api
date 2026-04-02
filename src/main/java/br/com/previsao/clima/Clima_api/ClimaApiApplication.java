@@ -18,22 +18,4 @@ public class ClimaApiApplication {
         SpringApplication.run(ClimaApiApplication.class, args);
     }
 
-    @Bean
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
-
-    @Bean
-    public OpenAPI customOpenAPI() {
-        return new OpenAPI()
-                .info(new Info()
-                        .title("API de Previsão do Tempo 4ºP")
-                        .version("1.0.0")
-                        .description("API RESTful criada para o projeto de S.I., consumindo a OpenWeather API.")
-                        .contact(new Contact()
-                                .name("Thiago José")
-                                .email("thiagopombos@hotmail.com")
-                        )
-                );
-    }
 }

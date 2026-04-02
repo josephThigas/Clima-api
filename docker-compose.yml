@@ -9,7 +9,7 @@ services:
     ports:
       -  "8080:8080"
     environment:
-      - API.KEY.ID=seu_id
+      - API.KEY.ID=12c917a0efe685236f04aa3187d8015a
       - API.KEY.GEMINI=sua_chave
       - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/clima_api
       - SPRING_DATASOURCE_USERNAME=clima_api
