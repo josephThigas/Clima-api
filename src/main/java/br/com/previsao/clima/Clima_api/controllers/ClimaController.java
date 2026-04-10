@@ -34,7 +34,7 @@ public class ClimaController {
     @GetMapping("/clima/{cidade}")
     @Operation(summary = "Busca o clima atual de uma cidade",
             description = "Retorna um JSON limpo (DTO) com os dados principais do clima.")
-    public ResponseEntity<Object> getClima(@PathVariable String cidade) {
+    public ResponseEntity<GetOpenWeatherDto> getClima(@PathVariable String cidade) {
         return ResponseEntity.ok().body(climaService.buscarClimaPorCidade(cidade));
     }
 

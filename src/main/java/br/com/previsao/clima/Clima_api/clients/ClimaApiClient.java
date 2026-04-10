@@ -10,12 +10,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface ClimaApiClient {
 
     @GetMapping("data/2.5/weather")
-    public GetOpenWeatherDto puxarClimaPeloNomeDacidade(@RequestParam(name = "q")String nomeDaCidade,
-                                           @RequestParam(name = "appid") String chaveApi);
+    public GetOpenWeatherDto puxarClimaAtualPeloNomeDacidade(@RequestParam(name = "q")String nomeDaCidade,
+                                                             @RequestParam(name = "appid") String chaveApi);
 
     @GetMapping("data/2.5/weather")
     public GetOpenWeatherDto puxarClimaPorLatitudeLongitude(@RequestParam(name = "lon")Long longitude,
                                                             @RequestParam(name = "lat")Long latitude,
                                                             @RequestParam(name = "appid") String chaveApi);
+
 
 }

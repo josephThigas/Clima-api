@@ -29,7 +29,7 @@ public class ClimaService {
 
     public GetOpenWeatherDto buscarClimaPorCidade(String cidade) {
         try {
-            return this.climaApiClient.puxarClimaPeloNomeDacidade(cidade,apiKey);
+            return this.climaApiClient.puxarClimaAtualPeloNomeDacidade(cidade,apiKey);
         }catch (RuntimeException ex){
             //Adicionar um handler de erro
             return null;
