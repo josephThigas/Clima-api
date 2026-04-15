@@ -2,12 +2,10 @@ package br.com.previsao.clima.Clima_api.services;
 
 import br.com.previsao.clima.Clima_api.clients.ClimaApiClient;
 import br.com.previsao.clima.Clima_api.dtos.OpenWheaterDtos.GetOpenWeatherDto;
+import br.com.previsao.clima.Clima_api.dtos.OpenWheaterDtos.GetOpenWeatherForecastDto;
 import br.com.previsao.clima.Clima_api.dtos.PrevisaoItemDTO;
-import com.fasterxml.jackson.databind.JsonNode;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,9 +14,6 @@ import java.util.List;
 public class ClimaService {
 
     private final ClimaApiClient climaApiClient;
-
-    @Autowired
-    private RestTemplate restTemplate;
 
     @Value("${api.key.id}")
     private String apiKey;
@@ -37,36 +32,38 @@ public class ClimaService {
     }
 
     public List<PrevisaoItemDTO> buscarPrevisao(String cidade) {
-        String url = String.format(
-                "https://api.openweathermap.org/data/2.5/forecast?q=%s&appid=%s&units=metric&lang=pt_br",
-                cidade,
-                apiKey
-        );
-
         try {
-            JsonNode respostaJson = restTemplate.getForObject(url, JsonNode.class);
+            GetOpenWeatherForecastDto resposta = climaApiClient.puxarPrevisaoPeloNomeDaCidade(
+                    cidade,
+                    apiKey,
+                    "metric",
+                    "pt_br"
+            );
 
-            if (respostaJson == null) {
+            if (resposta == null || resposta.list() == null || resposta.list().isEmpty()) {
                 return null;
             }
 
             List<PrevisaoItemDTO> previsoes = new ArrayList<>();
-            JsonNode listaNode = respostaJson.path("list");
+            String pais = resposta.city() != null ? resposta.city().country() : null;
 
-            String pais = respostaJson.path("city").path("country").asText();
-
-            if (listaNode.isArray() && !listaNode.isEmpty()) {
-
-                for (JsonNode item : listaNode) {
-
-                    String dataHora = item.path("dt_txt").asText();
-                    double temperatura = item.path("main").path("temp").asDouble();
-                    String descricao = item.path("weather").path(0).path("description").asText();
-
-                    previsoes.add(new PrevisaoItemDTO(dataHora, temperatura, descricao, pais));
+            for (GetOpenWeatherForecastDto.ForecastItemDTO item : resposta.list()) {
+                if (item == null) {
+                    continue;
                 }
+
+                String dataHora = item.dataHora();
+                double temperatura = item.main() != null && item.main().temp() != null ? item.main().temp() : 0.0;
+                String descricao = item.weather() != null
+                        && !item.weather().isEmpty()
+                        && item.weather().get(0) != null
+                        ? item.weather().get(0).description()
+                        : null;
+
+                previsoes.add(new PrevisaoItemDTO(dataHora, temperatura, descricao, pais));
             }
-            return previsoes;
+
+            return previsoes.isEmpty() ? null : previsoes;
 
         } catch (Exception e) {
             System.err.println("Erro ao buscar previsão: " + e.getMessage());

@@ -2,6 +2,7 @@ package br.com.previsao.clima.Clima_api.clients;
 
 
 import br.com.previsao.clima.Clima_api.dtos.OpenWheaterDtos.GetOpenWeatherDto;
+import br.com.previsao.clima.Clima_api.dtos.OpenWheaterDtos.GetOpenWeatherForecastDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +18,12 @@ public interface ClimaApiClient {
     public GetOpenWeatherDto puxarClimaPorLatitudeLongitude(@RequestParam(name = "lon")Long longitude,
                                                             @RequestParam(name = "lat")Long latitude,
                                                             @RequestParam(name = "appid") String chaveApi);
+
+    @GetMapping("data/2.5/forecast")
+    public GetOpenWeatherForecastDto puxarPrevisaoPeloNomeDaCidade(@RequestParam(name = "q") String nomeDaCidade,
+                                                                    @RequestParam(name = "appid") String chaveApi,
+                                                                    @RequestParam(name = "units") String unidade,
+                                                                    @RequestParam(name = "lang") String idioma);
 
 
 }
