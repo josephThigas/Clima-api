@@ -59,8 +59,9 @@ public class ClimaService {
                         && item.weather().get(0) != null
                         ? item.weather().get(0).description()
                         : null;
+                Double probabilidadeChuva = item.pop() != null ? item.pop() : 0.0;
 
-                previsoes.add(new PrevisaoItemDTO(dataHora, temperatura, descricao, pais));
+                previsoes.add(new PrevisaoItemDTO(dataHora, temperatura, descricao, pais, probabilidadeChuva));
             }
 
             return previsoes.isEmpty() ? null : previsoes;

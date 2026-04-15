@@ -13,7 +13,8 @@ public record GetOpenWeatherForecastDto(
     public record ForecastItemDTO(
             @JsonProperty("dt_txt") String dataHora,
             ForecastMainDTO main,
-            List<ForecastWeatherDTO> weather
+            List<ForecastWeatherDTO> weather,
+            Double pop
     ) {
     }
 
