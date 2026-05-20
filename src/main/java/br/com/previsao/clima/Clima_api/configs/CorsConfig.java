@@ -10,8 +10,12 @@ public class CorsConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:5173") // A porta do seu frontend (Vite/React)
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD")
+                .allowedOrigins(
+                    "https://clima-app-neon-one.vercel.app", // Front-end em produção (Vercel)
+                    "http://localhost:5173",                 // Teste local do Vite
+                    "http://localhost:3000"                  // Teste local padrão
+                )
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "TRACE", "CONNECT")
                 .allowedHeaders("*")
                 .allowCredentials(true);
     }
